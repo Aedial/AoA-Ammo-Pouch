@@ -1,0 +1,27 @@
+{
+    "type": "forge:ore_shaped",
+    "pattern": [
+        "LSL",
+        "PEP",
+        "LPL"
+    ],
+    "key": {
+        "L": {
+            "item": "minecraft:leather"
+        },
+        "S": {
+            "item": "minecraft:string"
+        },
+        "P": {
+            "item": "minecraft:paper"
+        },
+        "E": {
+            "item": "minecraft:ender_pearl"
+        }
+    },
+    "result": {
+        "item": "aoaammopouch:ammo_pouch",
+        "count": 1,
+        "data": 0
+    }
+}

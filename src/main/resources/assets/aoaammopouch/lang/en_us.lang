@@ -1,0 +1,25 @@
+itemGroup.aoaammopouch=AoA Ammo Pouch
+
+aoaammopouch.config.server=Server
+aoaammopouch.config.server.tooltip=Server-side config
+aoaammopouch.config.server.inventory=Inventory
+aoaammopouch.config.server.inventory.tooltip=Inventory layout and slot rules for the Ammo Pouch
+aoaammopouch.config.server.inventory.slotCount=Slot count
+aoaammopouch.config.server.inventory.slotCount.tooltip=Number of storage slots available in the Ammo Pouch
+aoaammopouch.config.server.inventory.maxStackSize=Per-slot stack limit
+aoaammopouch.config.server.inventory.maxStackSize.tooltip=Maximum stack size allowed in each Ammo Pouch slot
+aoaammopouch.config.server.whitelist=Allowed ammo
+aoaammopouch.config.server.whitelist.tooltip=Registry names that can be inserted into the Ammo Pouch
+aoaammopouch.config.server.whitelist.allowedAmmoItems=Allowed ammo item IDs
+aoaammopouch.config.server.whitelist.allowedAmmoItems.tooltip=Registry names of every ammo item that the pouch accepts
+
+item.aoaammopouch.ammo_pouch.name=Ammo Pouch
+item.aoaammopouch.ammo_pouch.tip1=Stores AoA ammo for weapons to consume
+item.aoaammopouch.ammo_pouch.tip2=Filled slots: %1$s/%2$s
+item.aoaammopouch.ammo_pouch.tip3=Hold Shift to see contents
+item.aoaammopouch.ammo_pouch.empty=Empty
+item.aoaammopouch.ammo_pouch.content_line=- %1$s/%2$s§8 x §b%3$s
+
+tooltip.aoaammopouch.compatible=Compatible with the Ammo Pouch
+
+gui.aoaammopouch.ammo_pouch=Ammo Pouch
