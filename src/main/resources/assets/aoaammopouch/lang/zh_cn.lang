@@ -1,0 +1,25 @@
+itemGroup.aoaammopouch=AoA弹药袋
+
+aoaammopouch.config.server=服务端
+aoaammopouch.config.server.tooltip=服务端设置
+aoaammopouch.config.server.inventory=物品栏
+aoaammopouch.config.server.inventory.tooltip=弹药袋的物品栏布局与槽位规则
+aoaammopouch.config.server.inventory.slotCount=槽位数量
+aoaammopouch.config.server.inventory.slotCount.tooltip=弹药袋的可用存储槽位数
+aoaammopouch.config.server.inventory.maxStackSize=槽位堆叠上限
+aoaammopouch.config.server.inventory.maxStackSize.tooltip=弹药袋每个槽位允许的最大堆叠数量
+aoaammopouch.config.server.whitelist=允许的弹药
+aoaammopouch.config.server.whitelist.tooltip=可放入弹药袋的物品的注册名
+aoaammopouch.config.server.whitelist.allowedAmmoItems=允许的弹药物品ID
+aoaammopouch.config.server.whitelist.allowedAmmoItems.tooltip=弹药袋可接受的每种弹药物品的注册名
+
+item.aoaammopouch.ammo_pouch.name=弹药袋
+item.aoaammopouch.ammo_pouch.tip1=储存AoA弹药，供武器消耗
+item.aoaammopouch.ammo_pouch.tip2=已装填槽位：%1$s/%2$s
+item.aoaammopouch.ammo_pouch.tip3=按住Shift查看内容
+item.aoaammopouch.ammo_pouch.empty=空
+item.aoaammopouch.ammo_pouch.content_line=- %1$s/%2$s§8 x §b%3$s
+
+tooltip.aoaammopouch.compatible=兼容弹药袋
+
+gui.aoaammopouch.ammo_pouch=弹药袋
