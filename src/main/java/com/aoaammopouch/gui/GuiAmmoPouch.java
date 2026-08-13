@@ -20,6 +20,8 @@ public class GuiAmmoPouch extends GuiContainer {
     // TODO: Should we have a texture per row count?
     private static final ResourceLocation SLOT_TEXTURE = new ResourceLocation(Tags.MODID, "textures/guis/slot.png");
 
+    private static final float SLOT_ALPHA = 0.25f;
+
     private final ContainerAmmoPouch container;
 
     public GuiAmmoPouch(ContainerAmmoPouch inventorySlotsIn) {
@@ -86,7 +88,7 @@ public class GuiAmmoPouch extends GuiContainer {
             GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
             GlStateManager.SourceFactor.ONE,
             GlStateManager.DestFactor.ZERO);
-        GL11.glColor4f(1f, 1f, 1f, 0.5f);
+        GL11.glColor4f(1f, 1f, 1f, SLOT_ALPHA);
         this.mc.getTextureManager().bindTexture(SLOT_TEXTURE);
 
         for (int slotIndex = 0; slotIndex < this.container.getPouchSlotCount(); slotIndex++) {

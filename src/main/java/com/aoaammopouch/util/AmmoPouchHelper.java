@@ -57,6 +57,18 @@ public class AmmoPouchHelper {
     }
 
     public static NonNullList<ItemStack> readInventory(ItemStack pouchStack) {
+        // FIXME: The list size should not be saved in NBT, as going from 5 to 36 in the config
+        //        will cause the pouch to PERMANENTLY hold 36 slots, which defeats the purpose
+        //        of a config. Instead, it should use the config value, but not eagerly
+        //        delete the extra slots, so that if the config is changed back to 5,
+        //        the items are still technically there, but just not accessible.
+
+        //        Would also need a way to extract the extra items from the pouch,
+        //        maybe shift right-click on a chest?
+
+        //        And there would be a warning on the item tooltip if we have extra items,
+        //        with instructions on how to extract them.
+
         NonNullList<ItemStack> contents = NonNullList.withSize(getSlotCount(pouchStack), ItemStack.EMPTY);
 
         if (!isAmmoPouch(pouchStack) || !pouchStack.hasTagCompound()) return contents;

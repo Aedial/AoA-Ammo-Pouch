@@ -63,18 +63,20 @@ public class AmmoPouchLayout {
     public static final int MAX_COLUMNS = 9;
 
     /** Padding above the ammo pouch slots */
-    public static final int TOP_PADDING = 18;
+    public static final int TOP_PADDING = 26;
     /** Padding on the sides of the ammo pouch slots */
-    public static final int SIDE_PADDING = 7;
+    public static final int SIDE_PADDING = 14;
     /** Padding between the ammo pouch slots and the player inventory */
-    public static final int BOTTOM_PADDING = 20;
+    public static final int BOTTOM_PADDING = 26;
     /** Additional offset for the hotbar */
     public static final int HOTBAR_SPACING = 4;
+    /** Padding below the player inventory */
+    public static final int INVENTORY_BOTTOM_PADDING = 7;
 
     public static final int PLAYER_INVENTORY_OFFSET_Y = MAX_ROWS * SLOT_SIZE + TOP_PADDING + BOTTOM_PADDING;
     public static final int HOTBAR_OFFSET_Y = PLAYER_INVENTORY_OFFSET_Y + 3 * SLOT_SIZE + HOTBAR_SPACING;
     public static final int GUI_WIDTH = MAX_COLUMNS * SLOT_SIZE + 2 * SIDE_PADDING;
-    public static final int GUI_HEIGHT = PLAYER_INVENTORY_OFFSET_Y + 4 * SLOT_SIZE + HOTBAR_SPACING;
+    public static final int GUI_HEIGHT = PLAYER_INVENTORY_OFFSET_Y + 4 * SLOT_SIZE + HOTBAR_SPACING + INVENTORY_BOTTOM_PADDING;
 
     private final int[] slotX;
     private final int[] slotY;
@@ -95,7 +97,8 @@ public class AmmoPouchLayout {
         int slotIndex = 0;
 
         // The Os ensure we maintain the correct spacing for empty slots
-        int rowStartX = SIDE_PADDING + (MAX_COLUMNS - rowPatterns[0].trim().length()) * SLOT_SIZE / 2;
+        int rowStartX = SIDE_PADDING + (MAX_COLUMNS - rowPatterns[0].trim().length()) * SLOT_SIZE / 2 + 1;
+        // TODO: test with bottom-aligned rows instead of centered
         int rowStartY = TOP_PADDING + (MAX_ROWS - rowPatterns.length) * SLOT_SIZE / 2;
 
         for (int row = 0; row < rowPatterns.length; row++) {

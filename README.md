@@ -23,3 +23,5 @@ The allowed ammo items can be configured. It is a list of registry names of ever
 
 
 ## Credits
+- Chinese translation: @ZHAY10086
+- Pouch GUI texture: @Foreck1
