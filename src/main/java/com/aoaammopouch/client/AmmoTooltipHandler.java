@@ -24,6 +24,6 @@ public class AmmoTooltipHandler {
 
         List<String> tooltip = event.getToolTip();
         tooltip.add("");
-        tooltip.add(TextFormatting.AQUA + I18n.format("tooltip.aoaammopouch.compatible"));
+        tooltip.add(I18n.format("tooltip.aoaammopouch.compatible"));
     }
 }

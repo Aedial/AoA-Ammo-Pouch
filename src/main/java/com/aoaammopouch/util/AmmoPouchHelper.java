@@ -3,7 +3,9 @@ package com.aoaammopouch.util;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -125,7 +127,25 @@ public class AmmoPouchHelper {
         ResourceLocation registryName = stack.getItem().getRegistryName();
         if (registryName == null) return false;
 
-        return AmmoPouchConfig.getAllowedAmmoIds().contains(registryName.toString());
+        return isAllowedAmmo(registryName, AmmoPouchConfig.getAllowedAmmoIds());
+    }
+
+    public static boolean isAllowedAoAAmmo(ItemStack stack) {
+        if (stack.isEmpty()) return false;
+
+        ResourceLocation registryName = stack.getItem().getRegistryName();
+        if (registryName == null) return false;
+
+        return isAllowedAmmo(registryName, AmmoPouchConfig.getAllowedAoAAmmoIds());
+    }
+
+    public static boolean isAllowedDivineRPGAmmo(Item item) {
+        if (item == null) return false;
+
+        ResourceLocation registryName = item.getRegistryName();
+        if (registryName == null) return false;
+
+        return isAllowedAmmo(registryName, AmmoPouchConfig.getAllowedDivineRPGAmmoIds());
     }
 
     public static int getFilledSlotCount(ItemStack pouchStack) {
@@ -157,7 +177,7 @@ public class AmmoPouchHelper {
     }
 
     public static boolean tryConsumeAmmo(ItemStack pouchStack, ItemStack requestedStack, boolean consumeItem, int amount) {
-        if (!isAmmoPouch(pouchStack) || !isAllowedAmmo(requestedStack)) return false;
+        if (!isAmmoPouch(pouchStack) || !isAllowedAoAAmmo(requestedStack)) return false;
 
         NonNullList<ItemStack> contents = readInventory(pouchStack);
         int foundCount = 0;
@@ -175,6 +195,39 @@ public class AmmoPouchHelper {
         for (int slot = 0; slot < contents.size(); slot++) {
             ItemStack stack = contents.get(slot);
             if (stack.isEmpty() || !areStacksFunctionallyEqual(stack, requestedStack)) continue;
+
+            int consumeAmount = Math.min(remaining, stack.getCount());
+            stack.shrink(consumeAmount);
+            if (stack.isEmpty()) contents.set(slot, ItemStack.EMPTY);
+
+            remaining -= consumeAmount;
+            if (remaining <= 0) break;
+        }
+
+        saveInventory(pouchStack, contents);
+
+        return true;
+    }
+
+    public static boolean tryConsumeAmmoByItem(ItemStack pouchStack, Item requestedItem, boolean consumeItem, int amount) {
+        if (!isAmmoPouch(pouchStack) || requestedItem == null || !isAllowedDivineRPGAmmo(requestedItem)) return false;
+
+        NonNullList<ItemStack> contents = readInventory(pouchStack);
+        int foundCount = 0;
+
+        for (ItemStack stack : contents) {
+            if (stack.isEmpty() || stack.getItem() != requestedItem) continue;
+            foundCount += stack.getCount();
+            if (foundCount >= amount) break;
+        }
+
+        if (foundCount < amount) return false;
+        if (!consumeItem) return true;
+
+        int remaining = amount;
+        for (int slot = 0; slot < contents.size(); slot++) {
+            ItemStack stack = contents.get(slot);
+            if (stack.isEmpty() || stack.getItem() != requestedItem) continue;
 
             int consumeAmount = Math.min(remaining, stack.getCount());
             stack.shrink(consumeAmount);
@@ -239,6 +292,10 @@ public class AmmoPouchHelper {
         if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
 
         return stack.getTagCompound();
+    }
+
+    private static boolean isAllowedAmmo(ResourceLocation registryName, Set<String> allowedIds) {
+        return allowedIds.contains(registryName.toString());
     }
 
     public static class ContentEntry {

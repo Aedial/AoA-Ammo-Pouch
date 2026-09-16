@@ -1,6 +1,7 @@
-# AoA Ammo Pouch
+# Ammo Pouch
 
-An Advent of Ascension 1.12 addon providing an Ammo Pouch for storing AoA ammo. This mod is primarily intended for streamlining ammo management and handling large quantities of AoA ammo without the inventory playing Tetris with you.
+An Advent of Ascension/DivineRPG 1.12 addon providing an Ammo Pouch. This mod is primarily intended for streamlining ammo management and handling large quantities of ammo without having to play Tetris.
+The pouch ONLY works for AoA and DivineRPG, any other mod's guns will have to integrate with the pouch themselves, or use a different ammo management solution.
 
 The pouch can be opened by right-clicking while holding it, and it will display a GUI to manage the ammo stored inside. It can also be filled by crafting it with ammo items.
 
@@ -12,15 +13,23 @@ Any crafting recipe for upgrading the pouch to a higher tier should just change 
 
 The mod includes a server-side configuration file with an in-game GUI editor:
 
+### DivineRPG toggle
+The integration with DivineRPG can be toggled off. Disabling means the pouch WILL NOT work with DivineRPG guns whatsover, the pouch will not accept items from the DivineRPG ammo list (see config below).
+
+### AoA toggle
+The integration with Advent of Ascension can be toggled off. Disabling means the pouch WILL NOT work with AoA guns whatsover, the pouch will not accept items from the AoA ammo list (see config below).
+
 ### Number of Slots
 The number of slots in the pouch can be configured. It is a list of integers, with the first entry being the number of slots for the first pouch tier. Any subsequent entries will be used for higher tiers (with metadata values 1, 2, etc.). Tiers beside 0 come with no texture or recipe, so you will need to add your own if you want to use them.
 
 ### Carrying Capacity
 The carrying capacity of the pouch can be configured. It follows the same rules as the number of slots, with a list of integers where the first entry is the capacity for the first pouch tier, and subsequent entries for higher tiers.
 
-### Allowed Ammo Items
-The allowed ammo items can be configured. It is a list of registry names of every ammo item that the pouch accepts. The default list includes most AoA ammo items, but you can add or remove items as needed. Note that this mod only adds handling for AoA guns. Any other mod's guns will not be able to use the pouch unless they are specifically coded to do so.
+### Allowed Ammo Items (AoA)
+The allowed ammo items can be configured. It is a list of registry names of every ammo item that the pouch accepts. The default list includes most AoA ammo items, but you can add or remove items as needed.
 
+### Allowed Ammo Items (DivineRPG)
+The allowed ammo items can be configured. It is a list of registry names of every ammo item that the pouch accepts. The default list includes most DivineRPG ammo items, but you can add or remove items as needed.
 
 ## Credits
 - Chinese translation: @ZHAY10086

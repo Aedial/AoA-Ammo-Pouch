@@ -1,5 +1,6 @@
 package com.aoaammopouch.config;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Locale;
@@ -20,13 +21,20 @@ public class AmmoPouchConfig {
 
     private static final int DEFAULT_SLOT_COUNT = 5;
     private static final int DEFAULT_MAX_STACK_SIZE = 1024;
+    private static final boolean DEFAULT_ALLOW_AOA_WEAPONS = true;
+    private static final boolean DEFAULT_ALLOW_DIVINERPG_WEAPONS = true;
 
     @Config.LangKey("aoaammopouch.config.server.inventory")
     public static final Inventory inventory = new Inventory();
 
+    @Config.LangKey("aoaammopouch.config.server.integrations")
+    public static final Integrations integrations = new Integrations();
+
     @Config.LangKey("aoaammopouch.config.server.whitelist")
     public static final Whitelist whitelist = new Whitelist();
 
+    private static Set<String> cachedAllowedAoAAmmoIds;
+    private static Set<String> cachedAllowedDivineRPGAmmoIds;
     private static Set<String> cachedAllowedAmmoIds;
 
     public static int getSlotCount() {
@@ -49,18 +57,37 @@ public class AmmoPouchConfig {
         return inventory.getMaxStackSize(metadata);
     }
 
+    public static boolean allowAoAWeapons() {
+        return integrations.allowAoAWeapons;
+    }
+
+    public static boolean allowDivineRPGWeapons() {
+        return integrations.allowDivineRPGWeapons;
+    }
+
+    public static Set<String> getAllowedAoAAmmoIds() {
+        if (cachedAllowedAoAAmmoIds != null) return cachedAllowedAoAAmmoIds;
+
+        cachedAllowedAoAAmmoIds = normalizeAllowedIds(whitelist.allowedAmmoItems);
+
+        return cachedAllowedAoAAmmoIds;
+    }
+
+    public static Set<String> getAllowedDivineRPGAmmoIds() {
+        if (cachedAllowedDivineRPGAmmoIds != null) return cachedAllowedDivineRPGAmmoIds;
+
+        cachedAllowedDivineRPGAmmoIds = normalizeAllowedIds(whitelist.allowedDivineRPGAmmoItems);
+
+        return cachedAllowedDivineRPGAmmoIds;
+    }
+
     public static Set<String> getAllowedAmmoIds() {
         if (cachedAllowedAmmoIds != null) return cachedAllowedAmmoIds;
 
         LinkedHashSet<String> allowedIds = new LinkedHashSet<String>();
 
-        for (String value : whitelist.allowedAmmoItems) {
-            if (value == null) continue;
-
-            String normalized = value.trim().toLowerCase(Locale.ROOT);
-
-            if (!normalized.isEmpty()) allowedIds.add(normalized);
-        }
+        if (allowAoAWeapons()) allowedIds.addAll(getAllowedAoAAmmoIds());
+        if (allowDivineRPGWeapons()) allowedIds.addAll(getAllowedDivineRPGAmmoIds());
 
         cachedAllowedAmmoIds = Collections.unmodifiableSet(allowedIds);
 
@@ -68,7 +95,23 @@ public class AmmoPouchConfig {
     }
 
     public static void invalidateCaches() {
+        cachedAllowedAoAAmmoIds = null;
+        cachedAllowedDivineRPGAmmoIds = null;
         cachedAllowedAmmoIds = null;
+    }
+
+    private static Set<String> normalizeAllowedIds(String[] values) {
+        LinkedHashSet<String> allowedIds = new LinkedHashSet<String>();
+
+        for (String value : values) {
+            if (value == null) continue;
+
+            String normalized = value.trim().toLowerCase(Locale.ROOT);
+
+            if (!normalized.isEmpty()) allowedIds.add(normalized);
+        }
+
+        return Collections.unmodifiableSet(allowedIds);
     }
 
     public static class Inventory {
@@ -111,12 +154,28 @@ public class AmmoPouchConfig {
         }
     }
 
+    public static class Integrations {
+
+        @Config.LangKey("aoaammopouch.config.server.integrations.allowAoAWeapons")
+        @Config.Comment({
+            "Enables Ammo Pouch support for AoA weapons that consume ammo. Requires a restart."
+        })
+        public boolean allowAoAWeapons = DEFAULT_ALLOW_AOA_WEAPONS;
+
+        @Config.LangKey("aoaammopouch.config.server.integrations.allowDivineRPGWeapons")
+        @Config.Comment({
+            "Enables Ammo Pouch support for DivineRPG ranged weapons that consume ammo.",
+            "Requires a restart."
+        })
+        public boolean allowDivineRPGWeapons = DEFAULT_ALLOW_DIVINERPG_WEAPONS;
+    }
+
     public static class Whitelist {
 
         @Config.LangKey("aoaammopouch.config.server.whitelist.allowedAmmoItems")
         @Config.Comment({
             "Registry names of items that can be stored in the Ammo Pouch.",
-            "This default list mirrors ammo-like stack currently consumed by AoA's ranged weapons."
+            "This default list mirrors ammo-like stacks currently consumed by AoA's ranged weapons."
         })
         public String[] allowedAmmoItems = {
             "aoa3:balloon",
@@ -135,6 +194,43 @@ public class AmmoPouchConfig {
             "aoa3:vulkram",
             "minecraft:cobblestone"
         };
+
+        @Config.LangKey("aoaammopouch.config.server.whitelist.allowedDivineRPGAmmoItems")
+        @Config.Comment({
+            "Registry names of DivineRPG ammo items that can be stored in the Ammo Pouch.",
+            "This default list mirrors ranged-weapon ammo currently consumed by DivineRPG."
+        })
+        public String[] allowedDivineRPGAmmoItems = {
+            "divinerpg:acid",
+            "divinerpg:apalachia_dust",
+            "divinerpg:corrupted_bullet",
+            "divinerpg:eden_dust",
+            "divinerpg:grenade",
+            "divinerpg:ice_shards",
+            "divinerpg:mortum_dust",
+            "divinerpg:skythern_dust",
+            "divinerpg:wildwood_dust",
+            "minecraft:cactus",
+            "minecraft:gold_nugget",
+            "minecraft:snowball"
+        };
+    }
+
+    /**
+     * Syncs the annotated config.
+     *
+     * @param configFile The configuration file
+     */
+    public static void init(File configFile) {
+        syncConfig();
+    }
+
+    public static void load() {
+        syncConfig();
+    }
+
+    private static void syncConfig() {
+        ConfigManager.sync(Tags.MODID, Config.Type.INSTANCE);
     }
 
     @Mod.EventBusSubscriber(modid = Tags.MODID)

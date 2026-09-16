@@ -1,5 +1,8 @@
 package com.aoaammopouch;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -13,10 +16,12 @@ import com.aoaammopouch.gui.GuiHandler;
     modid = Tags.MODID,
     name = Tags.MODNAME,
     version = Tags.VERSION,
-    dependencies = "required-after:aoa3;required-after:mixinbooter;after:baubles",
+    dependencies = "required-after:mixinbooter;after:baubles;after:aoa3;after:divinerpg",
     acceptedMinecraftVersions = "[1.12.2]"
 )
 public class AoAAmmoPouch {
+
+    public static final Logger LOGGER = LogManager.getLogger(Tags.MODID);
 
     @SidedProxy(
         clientSide = "com.aoaammopouch.ClientProxy",

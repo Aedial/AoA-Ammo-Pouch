@@ -8,7 +8,13 @@ The format is based on Keep a Changelog and this project adheres to Semantic Ver
 - Semantic Versioning: https://semver.org/spec/v2.0.0.html
 
 
-## [1.0.0] - 20
+## [1.1.0] - 2026-09-17
+### Added
+- Allow the Ammo Pouch to hold ammo from the DivineRPG mod.
+- Add separate AoA and DivineRPG integration toggles, with separate allowed ammo lists.
+
+
+## [1.0.0] - 2026-09-15
 ### Added
 - Add the proper texture for the item and the GUI.
 - Add the initial version of the AoA Ammo Pouch mod, which provides a convenient way to manage and carry ammunition for various AoA weapons in the game.

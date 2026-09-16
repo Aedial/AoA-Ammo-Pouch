@@ -92,8 +92,10 @@ if (propertyBool('publish_to_curseforge')) {
             mainFile.addRelation('mixin-booter', 'requiredDependency')
         }
 
-        // Required: Advent of Ascension
-        mainFile.addRelation('advent-of-ascension', 'requiredDependency')
+        // Soft-required: Advent of Ascension
+        mainFile.addRelation('advent-of-ascension', 'optionalDependency')
+        // Soft-required: Divine RPG
+        mainFile.addRelation('official-divinerpg', 'optionalDependency')
 
         // Optional: Baubles
         mainFile.addRelation('baubles', 'optionalDependency')
