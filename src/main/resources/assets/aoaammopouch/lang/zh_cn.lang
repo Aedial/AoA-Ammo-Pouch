@@ -8,18 +8,26 @@ aoaammopouch.config.server.inventory.slotCount=槽位数量
 aoaammopouch.config.server.inventory.slotCount.tooltip=弹药袋的可用存储槽位数
 aoaammopouch.config.server.inventory.maxStackSize=槽位堆叠上限
 aoaammopouch.config.server.inventory.maxStackSize.tooltip=弹药袋每个槽位允许的最大堆叠数量
+aoaammopouch.config.server.integrations=集成
+aoaammopouch.config.server.integrations.tooltip=启用支持的武器集成，使其可以消耗弹药袋中的弹药
+aoaammopouch.config.server.integrations.allowAoAWeapons=启用AoA武器
+aoaammopouch.config.server.integrations.allowAoAWeapons.tooltip=允许将AoA武器与弹药袋搭配使用。需要重启。
+aoaammopouch.config.server.integrations.allowDivineRPGWeapons=启用神圣RPG武器
+aoaammopouch.config.server.integrations.allowDivineRPGWeapons.tooltip=允许将神圣RPG武器与弹药袋搭配使用。需要重启。
 aoaammopouch.config.server.whitelist=允许的弹药
 aoaammopouch.config.server.whitelist.tooltip=可放入弹药袋的物品的注册名
-aoaammopouch.config.server.whitelist.allowedAmmoItems=允许的弹药物品ID
-aoaammopouch.config.server.whitelist.allowedAmmoItems.tooltip=弹药袋可接受的每种弹药物品的注册名
+aoaammopouch.config.server.whitelist.allowedAmmoItems=允许的AoA弹药物品ID
+aoaammopouch.config.server.whitelist.allowedAmmoItems.tooltip=弹药袋可接受的每种AoA弹药物品的注册名
+aoaammopouch.config.server.whitelist.allowedDivineRPGAmmoItems=允许的神圣RPG弹药物品ID
+aoaammopouch.config.server.whitelist.allowedDivineRPGAmmoItems.tooltip=弹药袋可接受的每种神圣RPG弹药物品的注册名
 
 item.aoaammopouch.ammo_pouch.name=弹药袋
-item.aoaammopouch.ammo_pouch.tip1=储存AoA弹药，供武器消耗
+item.aoaammopouch.ammo_pouch.tip1=储存AoA/神圣RPG弹药，供武器消耗
 item.aoaammopouch.ammo_pouch.tip2=已装填槽位：%1$s/%2$s
 item.aoaammopouch.ammo_pouch.tip3=按住Shift查看内容
 item.aoaammopouch.ammo_pouch.empty=空
 item.aoaammopouch.ammo_pouch.content_line=- %1$s/%2$s§8 x §b%3$s
 
-tooltip.aoaammopouch.compatible=兼容弹药袋
+tooltip.aoaammopouch.compatible=§b兼容弹药袋
 
 gui.aoaammopouch.ammo_pouch=弹药袋
