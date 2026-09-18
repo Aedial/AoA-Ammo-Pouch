@@ -43,7 +43,7 @@ dependencies {
     runtimeOnly 'com.cleanroommc:osxnarratorblocker:1.0'
 
     // ---- Required: AoA ----
-    devOnlyNonPublishable rfg.deobf("curse.maven:advent-of-ascension-311054:3054253")
+    devOnlyNonPublishable rfg.deobf("curse.maven:advent-of-ascension-nevermine-311054:3054253")
 
     // ---- Required: Divine RPG ----
     devOnlyNonPublishable rfg.deobf("curse.maven:official-divinerpg-363543:3081433")

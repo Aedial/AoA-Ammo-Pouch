@@ -93,7 +93,7 @@ if (propertyBool('publish_to_curseforge')) {
         }
 
         // Soft-required: Advent of Ascension
-        mainFile.addRelation('advent-of-ascension', 'optionalDependency')
+        mainFile.addRelation('advent-of-ascension-nevermine', 'optionalDependency')
         // Soft-required: Divine RPG
         mainFile.addRelation('official-divinerpg', 'optionalDependency')
 
